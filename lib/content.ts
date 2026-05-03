@@ -32,12 +32,22 @@ export interface ContactContent {
   location: string
 }
 
+export interface ModelConfig {
+  path: string
+  positionX: number
+  positionY: number
+  positionZ: number
+  scale: number
+  cameraZ: number
+  cameraFov: number
+}
+
 export interface SiteContent {
   hero: HeroContent
   services: ServiceItem[]
   featuredVideos: FeaturedVideo[]
   contact: ContactContent
-  model: { path: string }
+  model: ModelConfig
 }
 
 const CONTENT_PATH = path.join(process.cwd(), "lib/site-content.json")

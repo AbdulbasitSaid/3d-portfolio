@@ -1,15 +1,10 @@
-"use client"
+"use client";
 
-import { VideoPlayer } from "@/components/video-player"
+import { VideoPlayer } from "@/components/video-player";
 
 export function FeaturedVideoSection() {
   return (
     <div className="space-y-6">
-      <div className="space-y-2 text-center">
-        <h2 className="text-2xl font-bold">Featured Work</h2>
-        <p className="text-gray-400">Watch our showreel and featured 3D animations</p>
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <VideoPlayer
           source={{ type: "youtube", videoId: "RJScvkUMt-8" }}
@@ -28,5 +23,5 @@ export function FeaturedVideoSection() {
         />
       </div>
     </div>
-  )
+  );
 }

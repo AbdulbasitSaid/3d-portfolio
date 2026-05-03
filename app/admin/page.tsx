@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { getContentAction, saveContentAction, uploadFileAction, logoutAction } from "@/app/actions/content"
 import type { SiteContent, ServiceItem, FeaturedVideo } from "@/lib/content"
 import { Loader2, Save, Upload, LogOut } from "lucide-react"
+import { ModelViewer } from "@/components/model-viewer"
 
 function Field({ label, name, value, onChange, multiline }: {
   label: string
@@ -22,6 +23,31 @@ function Field({ label, name, value, onChange, multiline }: {
       ) : (
         <input className={cls} value={value} onChange={(e) => onChange(e.target.value)} />
       )}
+    </div>
+  )
+}
+
+function NumericField({ label, value, onChange, step = 0.1, min, max }: {
+  label: string
+  value: number
+  onChange: (v: number) => void
+  step?: number
+  min?: number
+  max?: number
+}) {
+  const cls = "w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+  return (
+    <div className="space-y-1">
+      <label className="text-xs text-gray-400 uppercase tracking-wider">{label}</label>
+      <input
+        type="number"
+        step={step}
+        min={min}
+        max={max}
+        className={cls}
+        value={value}
+        onChange={(e) => onChange(parseFloat(e.target.value) || 0)}
+      />
     </div>
   )
 }
@@ -312,6 +338,7 @@ function ModelTab({ model, saving, onSave, onToast }: {
 }) {
   const [local, setLocal] = useState(model)
   const [uploading, setUploading] = useState(false)
+  const set = (k: keyof typeof local) => (v: number | string) => setLocal((p) => ({ ...p, [k]: v }))
 
   async function handleUpload(file: File) {
     setUploading(true)
@@ -320,10 +347,8 @@ function ModelTab({ model, saving, onSave, onToast }: {
     try {
       const result = await uploadFileAction(fd, `models/${file.name}`)
       if (result.success) {
-        const next = { path: result.path! }
-        setLocal(next)
-        onSave(next)
-        onToast("Model uploaded and saved", true)
+        setLocal((p) => ({ ...p, path: result.path! }))
+        onToast("Model uploaded", true)
       }
     } catch {
       onToast("Upload failed", false)
@@ -332,25 +357,72 @@ function ModelTab({ model, saving, onSave, onToast }: {
   }
 
   return (
-    <div className="max-w-xl space-y-4">
+    <div className="space-y-6">
       <h2 className="text-xl font-bold">3D Model</h2>
-      <div className="bg-gray-900 rounded-lg p-4 space-y-3">
-        <div className="space-y-1">
-          <label className="text-xs text-gray-400 uppercase tracking-wider">Current model path</label>
-          <p className="text-sm font-mono text-gray-300">{local.path}</p>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Settings column */}
+        <div className="space-y-4">
+          <div className="bg-gray-900 rounded-lg p-4 space-y-3">
+            <h3 className="text-sm font-medium text-gray-300 uppercase tracking-wider">Model File</h3>
+            <div className="space-y-1">
+              <label className="text-xs text-gray-400 uppercase tracking-wider">Current model path</label>
+              <p className="text-sm font-mono text-gray-300">{local.path}</p>
+            </div>
+            <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-400 hover:text-white transition-colors w-fit">
+              {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+              Upload new .glb model
+              <input
+                type="file"
+                accept=".glb,.gltf"
+                className="hidden"
+                onChange={(e) => e.target.files?.[0] && handleUpload(e.target.files[0])}
+              />
+            </label>
+            <p className="text-xs text-gray-500">Uploading will immediately replace the hero model.</p>
+          </div>
+
+          <div className="bg-gray-900 rounded-lg p-4 space-y-3">
+            <h3 className="text-sm font-medium text-gray-300 uppercase tracking-wider">Position</h3>
+            <div className="grid grid-cols-3 gap-3">
+              <NumericField label="X" value={local.positionX} onChange={(v) => set("positionX")(v)} step={0.1} />
+              <NumericField label="Y" value={local.positionY} onChange={(v) => set("positionY")(v)} step={0.1} />
+              <NumericField label="Z" value={local.positionZ} onChange={(v) => set("positionZ")(v)} step={0.1} />
+            </div>
+          </div>
+
+          <div className="bg-gray-900 rounded-lg p-4 space-y-3">
+            <h3 className="text-sm font-medium text-gray-300 uppercase tracking-wider">Scale</h3>
+            <NumericField label="Scale" value={local.scale} onChange={(v) => set("scale")(v)} step={0.1} min={0.1} />
+          </div>
+
+          <div className="bg-gray-900 rounded-lg p-4 space-y-3">
+            <h3 className="text-sm font-medium text-gray-300 uppercase tracking-wider">Camera</h3>
+            <NumericField label="Distance (Z)" value={local.cameraZ} onChange={(v) => set("cameraZ")(v)} step={0.5} min={1} />
+            <NumericField label="Field of View" value={local.cameraFov} onChange={(v) => set("cameraFov")(v)} step={1} min={10} max={120} />
+          </div>
         </div>
-        <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-400 hover:text-white transition-colors w-fit">
-          {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
-          Upload new .glb model
-          <input
-            type="file"
-            accept=".glb,.gltf"
-            className="hidden"
-            onChange={(e) => e.target.files?.[0] && handleUpload(e.target.files[0])}
-          />
-        </label>
-        <p className="text-xs text-gray-500">Uploading will immediately replace the hero model.</p>
+
+        {/* Preview column */}
+        <div className="space-y-2">
+          <h3 className="text-sm font-medium text-gray-300 uppercase tracking-wider">Live Preview</h3>
+          <div
+            key={`${local.cameraZ}-${local.cameraFov}-${local.path}`}
+            className="h-[360px] bg-gray-900 rounded-lg overflow-hidden border border-gray-800"
+          >
+            <ModelViewer
+              modelPath={local.path}
+              position={[local.positionX, local.positionY, local.positionZ]}
+              scale={local.scale}
+              cameraZ={local.cameraZ}
+              cameraFov={local.cameraFov}
+            />
+          </div>
+          <p className="text-xs text-gray-500">Preview updates position and scale live. Camera changes remount the canvas.</p>
+        </div>
       </div>
+
+      <SaveBar onSave={() => onSave(local)} saving={saving} />
     </div>
   )
 }

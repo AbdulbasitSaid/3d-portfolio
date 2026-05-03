@@ -6,8 +6,8 @@ Contact: salihusaeed2712@gmail.com | cgsalih.com
 Social: @cgsalih on Instagram, X, YouTube
 
 ## Stack
-- Next.js 15 App Router + TypeScript 5 + React 19
-- Tailwind CSS 3.4.17 (config: tailwind.config.ts)
+- Next.js 16 App Router + TypeScript 5 + React 19
+- Tailwind CSS 4.2.4 (CSS-based config in app/globals.css — no tailwind.config.ts)
 - shadcn/ui (default style, cssVariables: true, baseColor: neutral) — 50 components in components/ui/
 - Three.js + @react-three/fiber + @react-three/drei
 - React Hook Form + Zod (for any form with validation)

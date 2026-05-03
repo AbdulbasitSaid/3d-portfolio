@@ -2,7 +2,7 @@
 
 import { useRef, Suspense } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
-import { OrbitControls, Environment, useGLTF } from "@react-three/drei"
+import { Environment, useGLTF } from "@react-three/drei"
 import type { Group } from "three"
 
 function Model() {
@@ -11,7 +11,7 @@ function Model() {
   // Slow rotation when not interacting
   useFrame((state) => {
     if (modelRef.current) {
-      modelRef.current.rotation.y += 0.005
+      modelRef.current.rotation.y += 0.0003
     }
   })
 
@@ -31,15 +31,7 @@ export function ModelViewer() {
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
         <Model />
-        <OrbitControls
-          enableZoom={true}
-          enablePan={false}
-          minPolarAngle={Math.PI / 6}
-          maxPolarAngle={Math.PI / 1.5}
-          autoRotate={false}
-          autoRotateSpeed={1}
-        />
-        <Environment preset="studio" />
+<Environment preset="studio" />
       </Canvas>
     </div>
   )

@@ -75,14 +75,47 @@ public/
   images/              # Product renders and profile photo
 ```
 
+## Admin Panel
+
+The portfolio has a password-protected admin panel for editing content without touching code.
+
+### Setup
+
+Add `ADMIN_PASSWORD` to `.env.local`:
+
+```env
+RESEND_API_KEY=your_resend_api_key_here
+ADMIN_PASSWORD=your_chosen_password
+```
+
+### Accessing the Admin Panel
+
+1. Go to [http://localhost:3000/admin](http://localhost:3000/admin) (or `/admin` on your live domain)
+2. Enter the password set in `ADMIN_PASSWORD`
+3. You will be redirected to the dashboard
+
+Visiting `/admin` without a valid session redirects automatically to `/admin/login`.
+
+### What You Can Edit
+
+| Tab | Editable fields |
+|-----|----------------|
+| **Hero** | Headlines, subtitle, bio text, CTA button label |
+| **Services** | Title, description, and image for each of the 4 service cards |
+| **Videos** | Title, description, YouTube video ID (or switch to a local file path) |
+| **Contact** | Email, phone number, location |
+| **3D Model** | Upload a new `.glb` file to replace the hero model |
+
+All changes are saved to `lib/site-content.json` and reflected on the homepage immediately. Uploaded images go to `public/images/products/` and models go to `public/models/`.
+
+### Session
+
+The login session lasts 7 days via an `httpOnly` cookie. Use the **Logout** button in the admin header to end the session early.
+
 ## Notes
 
 - The `--legacy-peer-deps` flag is needed during install due to peer dependency conflicts between some Radix UI packages and React 19.
 - Images are hosted on Vercel Blob Storage for animated GIFs in the portfolio section.
-- The 3D model viewer uses `OrbitControls` — drag to rotate, scroll to zoom.
-
-
-### Todos
-
-
+- The hero 3D model auto-rotates; orbit controls are intentionally disabled.
+- Local video files can be placed in `public/videos/` and referenced via the Videos tab in the admin panel.
 

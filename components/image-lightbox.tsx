@@ -28,14 +28,14 @@ export function ImageLightbox({ images, gridClassName }: ImageLightboxProps) {
         {images.map((img) => (
           <div
             key={img.src}
-            className={`bg-gray-800 rounded-lg overflow-hidden group hover:shadow-lg transition-all duration-300 cursor-pointer ${img.colSpan ?? ""}`}
+            className={`glass-card rounded-lg overflow-hidden group hover:border-white/25 hover:shadow-2xl transition-all duration-300 cursor-pointer ${img.colSpan ?? ""}`}
             onClick={() => setSelected(img.src)}
           >
             <div className={`relative ${img.aspectRatio ?? "aspect-[4/5]"}`}>
               <Image src={img.src} alt={img.alt} fill className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-            <div className="p-4">
+            <div className="p-4 border-t border-white/10">
               <h3 className="font-medium">{img.title}</h3>
               <p className="text-sm text-gray-400">{img.description}</p>
             </div>

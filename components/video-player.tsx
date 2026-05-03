@@ -26,7 +26,7 @@ export function VideoPlayer({ source, title, description }: VideoPlayerProps) {
   return (
     <>
       <div
-        className="bg-gray-800 rounded-lg overflow-hidden group cursor-pointer hover:shadow-lg transition-all duration-300 w-full"
+        className="glass-card rounded-lg overflow-hidden group cursor-pointer hover:border-white/25 hover:shadow-2xl transition-all duration-300 w-full"
         onClick={() => setOpen(true)}
       >
         <div className="aspect-video relative">
@@ -46,7 +46,7 @@ export function VideoPlayer({ source, title, description }: VideoPlayerProps) {
             </div>
           </div>
         </div>
-        <div className="p-4">
+        <div className="p-4 border-t border-white/10">
           <h3 className="font-medium text-sm md:text-base">{title}</h3>
           <p className="text-xs md:text-sm text-gray-400">{description}</p>
         </div>

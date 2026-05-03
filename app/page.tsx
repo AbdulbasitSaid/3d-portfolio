@@ -163,10 +163,14 @@ export default async function Home() {
             </div>
           </div>
           <div className="relative h-[350px] md:h-[520px] flex justify-center mt-4 md:mt-0">
-            <div className="w-full h-full max-w-[380px] md:max-w-[520px] bg-gradient-to-br from-gray-900 to-black rounded-lg overflow-hidden border border-gray-800">
+            <div className="w-full h-full max-w-[380px] md:max-w-[520px] glass-card rounded-lg overflow-hidden">
               <ModelViewer
                 modelPath={content.model.path}
-                position={[content.model.positionX, content.model.positionY, content.model.positionZ]}
+                position={[
+                  content.model.positionX,
+                  content.model.positionY,
+                  content.model.positionZ,
+                ]}
                 scale={content.model.scale}
                 cameraZ={content.model.cameraZ}
                 cameraFov={content.model.cameraFov}
@@ -196,7 +200,7 @@ export default async function Home() {
 
             <div className="w-full">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-gray-800 rounded-lg overflow-hidden">
+                <div className="glass-card rounded-lg overflow-hidden">
                   <div className="aspect-square relative">
                     <Image
                       src="https://wn33l2wud8bxcspj.public.blob.vercel-storage.com/revision%20gif-min.gif"
@@ -205,7 +209,7 @@ export default async function Home() {
                       className="object-cover"
                     />
                   </div>
-                  <div className="p-3">
+                  <div className="p-3 border-t border-white/10">
                     <h3 className="font-medium text-sm">
                       Product Visualization
                     </h3>
@@ -215,7 +219,7 @@ export default async function Home() {
                   </div>
                 </div>
 
-                <div className="bg-gray-800 rounded-lg overflow-hidden">
+                <div className="glass-card rounded-lg overflow-hidden">
                   <div className="aspect-square relative">
                     <Image
                       src="https://wn33l2wud8bxcspj.public.blob.vercel-storage.com/gummies%20gif-min.gif"
@@ -224,7 +228,7 @@ export default async function Home() {
                       className="object-cover"
                     />
                   </div>
-                  <div className="p-3">
+                  <div className="p-3 border-t border-white/10">
                     <h3 className="font-medium text-sm">Abstract Elements</h3>
                     <p className="text-xs text-gray-400">
                       Floating stones animation
@@ -232,7 +236,7 @@ export default async function Home() {
                   </div>
                 </div>
 
-                <div className="bg-gray-800 rounded-lg overflow-hidden">
+                <div className="glass-card rounded-lg overflow-hidden">
                   <div className="aspect-square relative">
                     <Image
                       src="https://wn33l2wud8bxcspj.public.blob.vercel-storage.com/bleter%20x%20grass%20grow%20gif-min.gif"
@@ -241,7 +245,7 @@ export default async function Home() {
                       className="object-cover"
                     />
                   </div>
-                  <div className="p-3">
+                  <div className="p-3 border-t border-white/10">
                     <h3 className="font-medium text-sm">Technical Design</h3>
                     <p className="text-xs text-gray-400">
                       Industrial component render
@@ -249,7 +253,7 @@ export default async function Home() {
                   </div>
                 </div>
 
-                <div className="bg-gray-800 rounded-lg overflow-hidden">
+                <div className="glass-card rounded-lg overflow-hidden">
                   <div className="aspect-square relative">
                     <Image
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ezgif-35953cdeaefbd2-ed8njGH6Rgvl4d5U9NhTgKq6TjA0c6.gif"
@@ -258,7 +262,7 @@ export default async function Home() {
                       className="object-cover"
                     />
                   </div>
-                  <div className="p-3">
+                  <div className="p-3 border-t border-white/10">
                     <h3 className="font-medium text-sm">Package Design</h3>
                     <p className="text-xs text-gray-400">
                       Product packaging visualization
@@ -284,7 +288,7 @@ export default async function Home() {
       </section>
 
       {/* Product Design Modeling Section */}
-      <section className="container mx-auto px-4 md:px-6 py-16 bg-gradient-to-b from-transparent to-gray-900 rounded-3xl">
+      <section className="container mx-auto px-4 md:px-6 py-16 from-transparent to-gray-900 rounded-3xl">
         <div className="space-y-2 mb-8 text-center">
           <h2 className="text-3xl font-bold">Product Design Modeling</h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
@@ -298,18 +302,6 @@ export default async function Home() {
         />
       </section>
 
-      {/* Social Media Section */}
-      {/* <section className="container mx-auto px-4 md:px-6 py-16">
-        <div className="space-y-2 mb-8 text-center">
-          <h2 className="text-3xl font-bold">Follow Me</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Connect with me on social media for the latest updates, behind-the-scenes content, and more 3D inspiration
-          </p>
-        </div>
-
- 
-      </section> */}
-      {/* Services Section */}
       <section
         id="services"
         className="container mx-auto px-4 md:px-6 py-8 md:py-12"
@@ -342,7 +334,7 @@ export default async function Home() {
               Ready to bring your products to life? Let&apos;s discuss your
               project and create something amazing together.
             </p>
-            <div className="bg-gray-900 p-6 rounded-lg">
+            <div className="glass-card p-6 rounded-lg">
               <div className="relative overflow-hidden rounded-lg">
                 <Image
                   src="/images/profile-photo.jpeg"
@@ -367,7 +359,7 @@ export default async function Home() {
               href="https://www.instagram.com/cgsalih"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gray-800 hover:bg-gray-700 rounded-lg p-6 transition-all duration-300 flex flex-col items-center text-center group"
+              className="glass-card hover:border-white/25 hover:shadow-2xl rounded-lg p-6 transition-all duration-300 flex flex-col items-center text-center group"
             >
               <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 flex items-center justify-center mb-4">
                 <Instagram className="h-8 w-8 text-white" />
@@ -385,7 +377,7 @@ export default async function Home() {
               href="https://x.com/cgsalih"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gray-800 hover:bg-gray-700 rounded-lg p-6 transition-all duration-300 flex flex-col items-center text-center group"
+              className="glass-card hover:border-white/25 hover:shadow-2xl rounded-lg p-6 transition-all duration-300 flex flex-col items-center text-center group"
             >
               <div className="w-16 h-16 rounded-full bg-black flex items-center justify-center mb-4">
                 <Twitter className="h-8 w-8 text-white" />
@@ -403,7 +395,7 @@ export default async function Home() {
               href="https://www.youtube.com/@cgsalih"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gray-800 hover:bg-gray-700 rounded-lg p-6 transition-all duration-300 flex flex-col items-center text-center group"
+              className="glass-card hover:border-white/25 hover:shadow-2xl rounded-lg p-6 transition-all duration-300 flex flex-col items-center text-center group"
             >
               <div className="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center mb-4">
                 <Youtube className="h-8 w-8 text-white" />

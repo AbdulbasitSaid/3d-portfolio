@@ -43,6 +43,17 @@
   --animate-accordion-up: accordion-up 0.2s ease-out;
 }
 
+/* Apple liquid glass card effect — matches service-card.tsx */
+@utility glass-card {
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
 /* Container: centered, responsive padding, 1400px cap at 2xl */
 @utility container {
   margin-inline: auto;

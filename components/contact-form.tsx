@@ -53,7 +53,7 @@ export function ContactForm() {
   }
 
   return (
-    <form className="space-y-4 md:space-y-6 bg-gray-900 p-4 md:p-6 rounded-lg">
+    <form className="space-y-4 md:space-y-6 glass-card p-4 md:p-6 rounded-lg">
       <div className="space-y-1 md:space-y-2">
         <Label htmlFor="name" className="text-sm md:text-base">
           Your name

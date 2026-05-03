@@ -112,6 +112,34 @@ All changes are saved to `lib/site-content.json` and reflected on the homepage i
 
 The login session lasts 7 days via an `httpOnly` cookie. Use the **Logout** button in the admin header to end the session early.
 
+## Deploying to Vercel
+
+### Environment Variables
+
+Set these in the Vercel dashboard under **Project → Settings → Environment Variables**:
+
+| Variable | Required | Description |
+|---|---|---|
+| `RESEND_API_KEY` | Yes | Resend API key for the contact form email action. Get one at resend.com. |
+| `ADMIN_PASSWORD` | Yes | Password to access the `/admin` panel. Choose something strong. |
+
+**Steps:**
+
+1. Go to [vercel.com](https://vercel.com) → your project → **Settings** → **Environment Variables**
+2. For each variable, enter the **Name** and **Value**, select all three environments (**Production**, **Preview**, **Development**), then click **Save**
+3. **Redeploy** the project after adding variables — existing deployments do not pick up new env vars automatically. Go to **Deployments** → click the three-dot menu on the latest deploy → **Redeploy**
+
+**CLI alternative** (if you have the Vercel CLI installed):
+
+```bash
+vercel env add RESEND_API_KEY
+vercel env add ADMIN_PASSWORD
+```
+
+Both commands will prompt for the value and ask which environments to apply it to.
+
+> **Note:** Never commit `.env.local` to git — it is already in `.gitignore`. The Vercel dashboard is the only place production secrets should live.
+
 ## Notes
 
 - The `--legacy-peer-deps` flag is needed during install due to peer dependency conflicts between some Radix UI packages and React 19.
